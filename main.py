@@ -14,6 +14,9 @@ get_client()
 
 from broker.CALL_BUY import buy_call
 from broker.CALL_SELL import sell_call
+from broker.PUT_BUY import buy_put
+from broker.PUT_SELL import sell_put
+
 
 settings = get_globals()
 client = settings.get_neo_client()
@@ -50,5 +53,11 @@ async def process_trade(trade_signal:Request):
         return result
     elif signal['option_type'] == "CE" and signal['action'] == "SELL":
         result = await sell_call(signal)
+        return result
+    elif signal['option_type'] == "PE" and signal['action'] == "BUY":
+        result = await buy_put(signal)
+        return result
+    elif signal['option_type'] == "PE" and signal['action'] == "SELL":
+        result = await sell_put(signal)
         return result
     return "There is some error in TV Parameters"
