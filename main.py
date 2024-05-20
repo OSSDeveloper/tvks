@@ -18,7 +18,9 @@ from broker.CALL_SELL import sell_call
 settings = get_globals()
 client = settings.get_neo_client()
 
+
 print(settings.data)
+
 app = FastAPI()
 
 
@@ -26,9 +28,9 @@ app = FastAPI()
 async def global_exception_handler(request: Request, exc: Exception):
     display_exception(exc)
 
-@app.get("/")
-async def root():
-    return {"message": settings._globals['client']}
+# @app.get("/")
+# async def root():
+#     return {"message": settings._globals['client']}
 
 @app.post("/signal")
 async def process_trade(trade_signal:Request):
@@ -49,4 +51,4 @@ async def process_trade(trade_signal:Request):
     elif signal['option_type'] == "CE" and signal['action'] == "SELL":
         result = await sell_call(signal)
         return result
-    return "There is some error in params"
+    return "There is some error in TV Parameters"
