@@ -19,21 +19,21 @@ async def buy_call(signal):
     instrument = settings._globals['nifty_call_instrument']
     
     nifty_default_lots = int(settings._globals['nifty_buy_lots'])
-    qty = settings['nifty_default_lot_size'] * nifty_default_lots
+    qty = settings.data['nifty_default_lot_size'] * nifty_default_lots
     try:
         order_result = client.place_order(
-            exchange_segment=settings['exchange_segment'], 
-            product=settings['product'], 
+            exchange_segment=settings.data['exchange_segment'], 
+            product=settings.data['product'], 
             price="", 
-            order_type=settings['order_type'], 
+            order_type=settings.data['order_type'], 
             quantity=str(qty), 
-            validity=settings['validity'], 
+            validity=settings.data['validity'], 
             trading_symbol=instrument,
             transaction_type="B", 
-            amo=settings['amo'], 
+            amo=settings.data['amo'], 
             disclosed_quantity="0", 
             market_protection="0", 
-            pf=settings['pf'], 
+            pf=settings.data['pf'], 
             trigger_price="0",
             tag=signal['tag']
             )

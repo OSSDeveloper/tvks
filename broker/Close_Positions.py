@@ -44,18 +44,18 @@ async def sell_positions(option_type):
 
     try:
         order_result = client.place_order(
-            exchange_segment=settings['exchange_segment'], 
-            product=settings['product'], 
+            exchange_segment=settings.data['exchange_segment'], 
+            product=settings.data['product'], 
             price="", 
-            order_type=settings['order_type'], 
+            order_type=settings.data['order_type'], 
             quantity=str(qty), 
-            validity=settings['validity'], 
+            validity=settings.data['validity'], 
             trading_symbol=instrument,
             transaction_type="S", 
-            amo=settings['amo'], 
+            amo=settings.data['amo'], 
             disclosed_quantity="0", 
             market_protection="0", 
-            pf=settings['pf'], 
+            pf=settings.data['pf'], 
             trigger_price="0",
             tag=""
             )

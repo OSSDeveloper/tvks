@@ -18,7 +18,7 @@ async def sell_call(signal):
     existing_position:int = get_instrument_qty(call_positions,instrument)
     
     if signal['signal'] == "CE-T1" or signal['signal'] == "T1":
-        qty:int = settings['nifty_default_lot_size'] * int(settings._globals['nifty_t1_lots'])
+        qty:int = settings.data['nifty_default_lot_size'] * int(settings._globals['nifty_t1_lots'])
     else:
         qty:int = existing_position
     
@@ -26,18 +26,18 @@ async def sell_call(signal):
         return f"Can not sell as {instrument} position is : {existing_position} and sell qty is {qty}"
     try:
         order_result = client.place_order(
-            exchange_segment=settings['exchange_segment'], 
-            product=settings['product'], 
+            exchange_segment=settings.data['exchange_segment'], 
+            product=settings.data['product'], 
             price="", 
-            order_type=settings['order_type'], 
+            order_type=settings.data['order_type'], 
             quantity=str(qty), 
-            validity=settings['validity'], 
+            validity=settings.data['validity'], 
             trading_symbol=instrument,
             transaction_type="S", 
-            amo=settings['amo'], 
+            amo=settings.data['amo'], 
             disclosed_quantity="0", 
             market_protection="0", 
-            pf=settings['pf'], 
+            pf=settings.data['pf'], 
             trigger_price="0",
             tag=signal['tag']
             )
