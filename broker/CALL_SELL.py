@@ -8,6 +8,7 @@ from recording.Post_Trans_Tasks import post_trans_tasks
 settings = get_globals()
 
 async def sell_call(signal):
+    
     client = settings.get_neo_client()
     kotak_positions = client.positions()
     positions = check_kotak_positions(kotak_positions)
@@ -41,7 +42,7 @@ async def sell_call(signal):
             trigger_price="0",
             tag=signal['tag']
             )
-
+        
         if 'stat' not in order_result or order_result['stat'] != 'Ok':
             await close_positions(signal['option_type'])
             return True
@@ -57,7 +58,7 @@ async def sell_call(signal):
         order_report = order_report['data']
         order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
         if order_passed:
-            recorded = await post_trans_tasks(signal,qty)
+            recorded = await post_trans_tasks(signal,instrument, qty)
             return f"Order {signal['tag']} to SELL {instrument} : {qty} quantity IS PLACED."
         else:
             await close_positions(signal['option_type'])

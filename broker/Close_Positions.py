@@ -11,6 +11,7 @@ settings = get_globals()
 client = settings.get_neo_client()
 
 async def close_positions(option_type):
+    print(f"Process to close {option_type} positions Started")
     while True:
         # Try to close trades
         await sell_positions(option_type)
@@ -19,6 +20,7 @@ async def close_positions(option_type):
         
         if qty is not None:
             if qty == 0:
+                print(f"All {option_type} positions are closed.")
                 return True
             else:
                 await asyncio.sleep(settings['sleep_interval'])
@@ -31,16 +33,15 @@ async def sell_positions(option_type):
 
     if qty is None:
         return False
-    
-    if qty == 0:
-        print(f"Position for the instrument {instrument} is 0")
-        return True
-    
-    
+
     if option_type == "CE":
         instrument:str = settings._globals['nifty_call_instrument']
     else:
         instrument:str = settings._globals['nifty_put_instrument']
+    
+    if qty == 0:
+        print(f"Position for the instrument {instrument} is 0")
+        return True
 
     try:
         order_result = client.place_order(

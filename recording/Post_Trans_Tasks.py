@@ -3,8 +3,8 @@ import requests
 import rich
 import json 
 settings = get_globals()
-async def post_trans_tasks(signal, qty):
-    url = 'https://asia-south1-nseoptiondata-408314.cloudfunctions.net/post_trans_tasks'
+async def post_trans_tasks(signal, instrument, qty):
+    url = settings._globals['recording_url']
     
     data = {
         'tag': signal['tag'],
@@ -14,7 +14,8 @@ async def post_trans_tasks(signal, qty):
         'signal': signal['signal'],
         'option_type': signal['option_type'],
         'qty': qty,
-        'ovalue': signal['ovalue']
+        'ovalue': signal['ovalue'],
+        'instrument': instrument
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json.dumps(data), headers=headers)
@@ -30,5 +31,3 @@ async def post_trans_tasks(signal, qty):
 # )
 
 # rich.print(result)
-
-# [SchemaField('tag', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('userid', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('username', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('strategy', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('signal', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('option_type', 'STRING', 'NULLABLE', None, None, (), None), SchemaField('qty', 'INTEGER', 'NULLABLE', None, None, (), None), SchemaField('tdate', 'DATE', 'NULLABLE', "CURRENT_DATE('Asia/Kolkata')", None, (), None), SchemaField('ttime', 'TIME', 'NULLABLE', "CURRENT_TIME('Asia/Kolkata')", None, (), None), SchemaField('ovalue', 'NUMERIC(10, 2)', 'NULLABLE', None, None, (), None)]

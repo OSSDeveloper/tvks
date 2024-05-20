@@ -51,7 +51,7 @@ async def buy_call(signal):
         order_report = order_report['data']
         order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
         if order_passed:
-            recorded = await post_trans_tasks(signal, qty)
+            recorded = await post_trans_tasks(signal, instrument,qty)
             return f"Order {signal['tag']} to buy {qty} quantity IS PLACED. post transactions tasks {recorded}"
         else: 
             return f"Order {signal['tag']} to buy {qty} quantity IS REJECTED by the BROKER."
