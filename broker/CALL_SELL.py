@@ -2,16 +2,17 @@ from global_vars import get_globals
 from utilities.Print_Debug_Msg import print_debug_msg
 from utilities.Check_Kotak_Positions import check_kotak_positions
 from utilities.Get_Instrument_Quantity import get_instrument_qty
+from broker.Close_Positions import close_positions
+from recording.Post_Trans_Tasks import post_trans_tasks
 
 settings = get_globals()
-
 
 async def sell_call(signal):
     client = settings.get_neo_client()
     kotak_positions = client.positions()
     positions = check_kotak_positions(kotak_positions)
     call_positions = positions['CE']
-
+    qty = 0
     instrument:str = settings._globals['nifty_call_instrument']
     
     existing_position:int = get_instrument_qty(call_positions,instrument)
@@ -40,7 +41,27 @@ async def sell_call(signal):
             trigger_price="0",
             tag=signal['tag']
             )
-        print_debug_msg(order_result)
-        return order_result
+
+        if 'stat' not in order_result or order_result['stat'] != 'Ok':
+            await close_positions(signal['option_type'])
+            return True
+            
+        order_num = order_result['nOrdNo']
+        order_report = client.order_history(order_id = order_num)
+        
+        order_report = order_report['data']
+        if 'stat' not in order_report or order_report['stat'] != 'Ok':
+            await close_positions(signal['option_type'])
+            return True
+            
+        order_report = order_report['data']
+        order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
+        if order_passed:
+            recorded = await post_trans_tasks(signal,qty)
+            return f"Order {signal['tag']} to SELL {instrument} : {qty} quantity IS PLACED."
+        else:
+            await close_positions(signal['option_type'])
+            return True
+            
     except Exception as e:
         print_debug_msg(e)

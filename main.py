@@ -8,7 +8,9 @@ from broker.Session import get_client
 from fastapi import FastAPI, Request
 from display_error import display_exception
 
-from utilities.Check_Kotak_Positions import check_kotak_positions
+# from utilities.Check_Kotak_Positions import check_kotak_positions
+from broker.Trade_Flags import Get_Trade_Flag, Set_Trade_Flag
+
 
 get_client()
 
@@ -18,7 +20,7 @@ from broker.CALL_SELL import sell_call
 settings = get_globals()
 client = settings.get_neo_client()
 
-
+print(settings.data)
 app = FastAPI()
 
 
@@ -42,8 +44,10 @@ async def process_trade(trade_signal:Request):
     signal['ovalue'] = raw_signal.get('index', None)
     signal['signal'] = raw_signal.get('signal', None)
     signal['tag'] = str(signal['trade_no']) + "_" + str(signal['signal'])
-
+        
     if signal['option_type'] == "CE" and signal['action'] == "BUY":
+        if Get_Trade_Flag(signal['option_type']) == False:
+            return f"Can't buy as previous trades are not closed"
         result = await buy_call(signal)
         return result
     elif signal['option_type'] == "CE" and signal['action'] == "SELL":

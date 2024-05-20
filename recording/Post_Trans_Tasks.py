@@ -1,19 +1,20 @@
-
+from global_vars import get_globals
 import requests
 import rich
 import json 
-
-async def post_trans_tasks(tag, userid, username, strategy, signal, option_type, qty, ovalue):
+settings = get_globals()
+async def post_trans_tasks(signal, qty):
     url = 'https://asia-south1-nseoptiondata-408314.cloudfunctions.net/post_trans_tasks'
+    
     data = {
-        'tag': tag,
-        'userid': userid,
-        'username': username,
-        'strategy': strategy,
-        'signal': signal,
-        'option_type': option_type,
+        'tag': signal['tag'],
+        'userid': settings._globals['user']['id'],
+        'username': settings._globals['user']['name'],
+        'strategy': signal['strategy'],
+        'signal': signal['signal'],
+        'option_type': signal['option_type'],
         'qty': qty,
-        'ovalue': ovalue
+        'ovalue': signal['ovalue']
     }
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, json.dumps(data), headers=headers)

@@ -7,6 +7,7 @@ from utilities import All_Utilities
 
 class GlobalSettings(BaseSettings):
     company: str = "Test Legal Entity"
+    sleep_interval: int = 3
     _globals: dict = {}
     data: dict = {}
     
@@ -37,6 +38,8 @@ class GlobalSettings(BaseSettings):
         self.data['validity'] = "IOC"
         self.data['amo'] = "NO"
         self.data['pf'] = "N"
+        self.data['call_trade_flag'] = True
+        self.data['put_trade_flag'] = True
 
     def __getitem__(self, key):
         return self.data[key]

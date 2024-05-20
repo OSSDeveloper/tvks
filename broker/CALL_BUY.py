@@ -1,8 +1,8 @@
-from operator import call
+# from operator import call
 from global_vars import get_globals
 from utilities.Print_Debug_Msg import print_debug_msg
 from utilities.Check_Kotak_Positions import check_kotak_positions
-from recording.cls_record import Trade_Record
+
 from recording.Post_Trans_Tasks import post_trans_tasks
 
 settings = get_globals()
@@ -51,16 +51,7 @@ async def buy_call(signal):
         order_report = order_report['data']
         order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
         if order_passed:
-            recorded = await post_trans_tasks(
-                signal['tag'],
-                settings._globals['user']['id'],
-                settings._globals['user']['name'],
-                signal['strategy'],
-                signal['signal'],
-                signal['option_type'],
-                qty,
-                signal['ovalue']
-            )
+            recorded = await post_trans_tasks(signal, qty)
             return f"Order {signal['tag']} to buy {qty} quantity IS PLACED. post transactions tasks {recorded}"
         else: 
             return f"Order {signal['tag']} to buy {qty} quantity IS REJECTED by the BROKER."
