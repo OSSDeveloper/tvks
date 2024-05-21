@@ -40,7 +40,7 @@ async def process_trade(trade_signal:Request):
     raw_signal = await trade_signal.json() if trade_signal.method == "POST" else {}
 
     signal = {}
-    signal['trade_no'] = raw_signal.get('trade_no', None)
+    signal['trade_no'] = raw_signal.get('trade', None)
     signal['strategy'] = raw_signal.get('strategy', None)
     signal['action'] = raw_signal.get('action', None)
     signal['option_type'] = raw_signal.get('option_type', None)
