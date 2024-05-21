@@ -59,7 +59,7 @@ urllib3==1.26.14
 uvicorn==0.29.0
 watchfiles==0.21.0
 websocket-client==1.5.1
-websockets==8.1
+websockets
 zc.lockfile==3.0.post1
 ZConfig==4.1
 zodbpickle==3.3
