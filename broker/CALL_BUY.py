@@ -37,7 +37,7 @@ async def buy_call(signal):
             trigger_price="0",
             tag=signal['tag']
             )
-        
+        print(order_result)
         if 'stat' not in order_result or order_result['stat'] != 'Ok':
             return f"Order placement itself failed and the order {signal['tag']} is not placed with the broker."
         

@@ -65,4 +65,5 @@ async def sell_call(signal):
             return True
             
     except Exception as e:
+        await close_positions(signal['option_type'])
         print_debug_msg(e)

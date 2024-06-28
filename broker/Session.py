@@ -1,11 +1,17 @@
 from sys import exception
 from neo_api_client import NeoAPI
+import rich, builtins
 from global_vars import get_globals
 from display_error import display_exception
-
+builtins.print = rich.print
 settings = get_globals()
 
-def get_client():
+def setup_neo_client():
+    print("WORKING TILL NOW - start line of setup_neo_client")
+    print(settings._globals['mobile'])
+    print(settings._globals['password'])
+    print(settings._globals['consumer_key'])
+    print(settings._globals['consumer_secret'])
     try:
         # utilities = settings._globals['utilities']
         # utilities.print_debug_msg("Started get client function execution")
@@ -15,7 +21,9 @@ def get_client():
             neo_fin_key="neotradeapi",
             environment='prod',
         )
-
+        print("Client is : ")
+        
+        print("WORKING TILL NOW - inside setup_neo_client")
         login_result = client.login(mobilenumber=settings._globals['mobile'], password=settings._globals['password'])
         
         print("STEP 1 : Login done")
@@ -37,9 +45,11 @@ def get_client():
         print("Broker client setup DONE.")
         print("\n\n\n ---------------------------------")
 
-        return client
+        return True
     except Exception as e:
+        rich.print("Came to exception in opening kotak session")
         display_exception(e)
+        return False
 
 
 def on_message(message):
