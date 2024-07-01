@@ -1,4 +1,4 @@
-import uvicorn
+# import uvicorn
 import builtins
 import rich
 builtins.print = rich.print
