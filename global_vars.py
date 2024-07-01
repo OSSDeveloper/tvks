@@ -40,6 +40,7 @@ class GlobalSettings(BaseSettings):
         self.data['pf'] = "N"
         self.data['call_trade_flag'] = True
         self.data['put_trade_flag'] = True
+        self.data['PNL'] = 0
 
     def __getitem__(self, key):
         return self.data[key]

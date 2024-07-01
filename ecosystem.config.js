@@ -1,10 +1,11 @@
 module.exports = {
     apps : [{
       name      : 'tvks',
-      script    : 'uvicorn', // assuming Unicorn is installed in a virtual environment
-      args: "main:app --host 0.0.0.0 --port 8000",
+      script    : 'python', // assuming Unicorn is installed in a virtual environment
+      args: "main.py",
       env: {
-        NODE_ENV: "production"
+        NODE_ENV: "production",
+        PORT: 8000
       }
     }]
   }

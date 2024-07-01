@@ -12,6 +12,13 @@ async def buy_call(signal):
     client = settings.get_neo_client()
     kotak_positions = client.positions()
     positions = check_kotak_positions(kotak_positions)
+
+    print(f"Global PNL is : {settings.data['PNL']}")
+    if settings.data['PNL'] >= 2000:
+        print(f"Global PNL is : {settings.data['PNL']}")
+        return f"Reached target PNL of 2000"
+    
+    
     call_positions = positions['CE']
     if len(call_positions) > 0:
         return f"Position exists. Can't buy  {call_positions}"
