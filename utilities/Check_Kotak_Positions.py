@@ -3,7 +3,8 @@ from utilities.Get_Pnl import get_pnl
 def check_kotak_positions(obj):
     positions = {'CE': [], 'PE':[]}
 
-    PNL = get_pnl(obj)
+    if obj is not None:
+        PNL = get_pnl(obj)
     
     if 'stat' not in obj or obj['stat'] != 'Ok':
         return positions
