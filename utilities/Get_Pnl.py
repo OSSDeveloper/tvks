@@ -16,14 +16,15 @@ def get_pnl(positions):
         return PNL
 
     for trade in positions['data']:
-        cfBuyAmt = trade.get('cfBuyAmt', 0)
-        buyAmt = trade.get('buyAmt',0)
-        cfSellAmt  = trade.get('cfSellAmt',0)
-        sellAmt = trade.get('sellAmt',0)
+        cfBuyAmt = float(trade.get('cfBuyAmt', 0))
+        buyAmt = float(trade.get('buyAmt',0))
+        cfSellAmt  = float(trade.get('cfSellAmt',0))
+        sellAmt = float(trade.get('sellAmt',0))
         buy_amount = cfBuyAmt + buyAmt
         sell_amount = cfSellAmt + sellAmt
-        
-        PNL = PNL + (sell_amount - buy_amount)
+        print(buy_amount)
+        print(sell_amount)
+        PNL = float(PNL) + float((sell_amount - buy_amount))
         
     settings.data['PNL'] = PNL
     # current_time = datetime.now()
