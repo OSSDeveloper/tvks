@@ -8,10 +8,10 @@ def get_pnl(positions):
     settings = get_globals()
     
     if 'stat' not in positions or positions['stat'] != 'Ok':
-        current_time = datetime.now()
-        time_part = current_time.strftime("%I:%M:%S %p")
-        # print("type of time_part is : ",type(time_part))
-        print("Time part is : ", time_part)
+        # current_time = datetime.now()
+        # time_part = current_time.strftime("%I:%M:%S %p")
+        # # print("type of time_part is : ",type(time_part))
+        # print("Time part is : ", time_part)
         print(f"P&L is {PNL}.")
         return PNL
 
@@ -26,8 +26,8 @@ def get_pnl(positions):
         PNL = PNL + (sell_amount - buy_amount)
         
     settings.data['PNL'] = PNL
-    current_time = datetime.now()
-    time_part = current_time.strftime("%I:%M:%S %p")
-    print("Time is : ", time_part)
+    # current_time = datetime.now()
+    # time_part = current_time.strftime("%I:%M:%S %p")
+    # print("Time is : ", time_part)
     print(f"P&L is {PNL}.")
     return PNL
