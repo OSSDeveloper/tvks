@@ -68,8 +68,8 @@ async def sell_call(signal):
             return f"Order {signal['tag']} to SELL {instrument} : {qty} quantity IS PLACED."
         else:
             await close_positions(signal['option_type'])
-            positions = check_kotak_positions(kotak_positions)
-            print(f"Global PNL is : {settings.data['PNL']}")
+            # positions = check_kotak_positions(kotak_positions)
+            # print(f"Global PNL is : {settings.data['PNL']}")
             return True
             
     except Exception as e:
