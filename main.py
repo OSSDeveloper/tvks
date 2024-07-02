@@ -19,7 +19,7 @@ from broker.CALL_BUY import buy_call
 from broker.CALL_SELL import sell_call
 from broker.PUT_BUY import buy_put
 from broker.PUT_SELL import sell_put
-
+from utilities.Check_Kotak_Positions import check_kotak_positions
 
 settings = get_globals()
 client = settings.get_neo_client()
@@ -77,6 +77,8 @@ async def process_trade(trade_signal:Request):
 def print_result(result):
     print("Sending the below result back to requester :")
     print(result)
+    positions = check_kotak_positions(kotak_positions)
+    print(f"Global PNL is : {settings.data['PNL']}")
     print("-"*50)
 
 # if __name__ == "__main__":
