@@ -45,6 +45,8 @@ async def sell_call(signal):
         
         if 'stat' not in order_result or order_result['stat'] != 'Ok':
             await close_positions(signal['option_type'])
+            positions = check_kotak_positions(kotak_positions)
+            print(f"Global PNL is : {settings.data['PNL']}")
             return True
             
         order_num = order_result['nOrdNo']
