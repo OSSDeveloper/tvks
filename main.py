@@ -77,8 +77,8 @@ async def process_trade(trade_signal:Request):
 def print_result(result):
     print("Sending the below result back to requester :")
     print(result)
-    positions = check_kotak_positions(kotak_positions)
-    print(f"Global PNL is : {settings.data['PNL']}")
+    # positions = check_kotak_positions(kotak_positions)
+    # print(f"Global PNL is : {settings.data['PNL']}")
     print("-"*50)
 
 # if __name__ == "__main__":
