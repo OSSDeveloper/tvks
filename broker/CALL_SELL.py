@@ -63,6 +63,8 @@ async def sell_call(signal):
         order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
         if order_passed:
             recorded = await post_trans_tasks(signal,instrument, qty)
+            positions = check_kotak_positions(kotak_positions)
+            print(f"Global PNL is : {settings.data['PNL']}")
             return f"Order {signal['tag']} to SELL {instrument} : {qty} quantity IS PLACED."
         else:
             await close_positions(signal['option_type'])
