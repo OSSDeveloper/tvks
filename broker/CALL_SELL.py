@@ -45,8 +45,8 @@ async def sell_call(signal):
         
         if 'stat' not in order_result or order_result['stat'] != 'Ok':
             await close_positions(signal['option_type'])
-            positions = check_kotak_positions(kotak_positions)
-            print(f"Global PNL is : {settings.data['PNL']}")
+            # positions = check_kotak_positions(kotak_positions)
+            # print(f"Global PNL is : {settings.data['PNL']}")
             return True
             
         order_num = order_result['nOrdNo']
@@ -55,16 +55,16 @@ async def sell_call(signal):
         order_report = order_report['data']
         if 'stat' not in order_report or order_report['stat'] != 'Ok':
             await close_positions(signal['option_type'])
-            positions = check_kotak_positions(kotak_positions)
-            print(f"Global PNL is : {settings.data['PNL']}")
+            # positions = check_kotak_positions(kotak_positions)
+            # print(f"Global PNL is : {settings.data['PNL']}")
             return True
             
         order_report = order_report['data']
         order_passed = not any(obj.get('ordSt') == 'rejected' for obj in order_report)
         if order_passed:
             recorded = await post_trans_tasks(signal,instrument, qty)
-            positions = check_kotak_positions(kotak_positions)
-            print(f"Global PNL is : {settings.data['PNL']}")
+            # positions = check_kotak_positions(kotak_positions)
+            # print(f"Global PNL is : {settings.data['PNL']}")
             return f"Order {signal['tag']} to SELL {instrument} : {qty} quantity IS PLACED."
         else:
             await close_positions(signal['option_type'])

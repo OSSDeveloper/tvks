@@ -20,6 +20,7 @@ from broker.CALL_SELL import sell_call
 from broker.PUT_BUY import buy_put
 from broker.PUT_SELL import sell_put
 from utilities.Check_Kotak_Positions import check_kotak_positions
+from utilities.PNL_Tasks import get_pnl
 
 settings = get_globals()
 client = settings.get_neo_client()
@@ -77,9 +78,8 @@ async def process_trade(trade_signal:Request):
 def print_result(result):
     print("Sending the below result back to requester :")
     print(result)
-    # positions = check_kotak_positions(kotak_positions)
-    # print(f"Global PNL is : {settings.data['PNL']}")
-    print("-"*50)
+    pnl = get_pnl()
 
 # if __name__ == "__main__":
 #     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+pnl = get_pnl()
