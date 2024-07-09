@@ -41,7 +41,7 @@ class GlobalSettings(BaseSettings):
         self.data['call_trade_flag'] = True
         self.data['put_trade_flag'] = True
         self.data['PNL'] = 0
-        self.data['PLIMIT'] = 3000
+        self.data['PLIMIT'] = 1000
 
     def __getitem__(self, key):
         return self.data[key]
