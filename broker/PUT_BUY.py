@@ -17,7 +17,7 @@ async def buy_put(signal):
     ulimit = settings._globals['plimit']
     llimit = settings._globals['plimit'] * -2
     if settings.data['PNL'] <= llimit or settings.data['PNL'] >= ulimit:
-        print_str = f"Reached target PNL of {settings.data['plimit']}. Wont trade further."
+        print_str = f"Reached target PNL of {settings._globals['plimit']}. Wont trade further."
         print(print_str)
         return print_str
     
