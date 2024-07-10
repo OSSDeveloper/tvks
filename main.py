@@ -27,7 +27,11 @@ client = settings.get_neo_client()
 
 
 print(settings.data)
-
+print("-"*60)
+print("")
+print(settings._globals)
+print("-"*60)
+print("")
 app = FastAPI()
 
 
