@@ -21,6 +21,7 @@ class GlobalSettings(BaseSettings):
         self.client = client
         print (self.get_neo_client())
         print("----------------------- Client Global Assignment completed ---------------")
+        
 
     def get_neo_client(self):
         return self.client
@@ -41,7 +42,10 @@ class GlobalSettings(BaseSettings):
         self.data['call_trade_flag'] = True
         self.data['put_trade_flag'] = True
         self.data['PNL'] = 0
-        self.data['PLIMIT'] = 1000
+        self.data['PLIMIT'] = float(self._globals.get('plimit',0))
+        self.data['LLIMIT'] = self.data['PLIMIT'] * -2
+        
+        
 
     def __getitem__(self, key):
         return self.data[key]

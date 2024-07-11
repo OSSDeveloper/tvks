@@ -14,8 +14,8 @@ async def buy_put(signal):
     positions = check_kotak_positions(kotak_positions)
 
     print(f"Global PNL is : {settings.data['PNL']}")
-    if settings.data['PNL'] >= settings.data['PLIMIT']:
-        return f"Reached target PNL of {settings.data['PLIMIT']}"
+    if settings.data['PNL'] <= (settings.data['LLIMIT']) or settings.data['PNL'] >= settings.data['PLIMIT']:
+        return f"Daily trading window is {settings.data['LLIMIT']} to {settings.data['PLIMIT']}."
     
     put_positions = positions['PE']
     if len(put_positions) > 0:

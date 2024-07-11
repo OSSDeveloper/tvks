@@ -25,13 +25,6 @@ from utilities.PNL_Tasks import get_pnl
 settings = get_globals()
 client = settings.get_neo_client()
 
-
-print(settings.data)
-print("-"*60)
-print("")
-print(settings._globals)
-print("-"*60)
-print("")
 app = FastAPI()
 
 
@@ -87,3 +80,4 @@ def print_result(result):
 # if __name__ == "__main__":
 #     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 pnl = get_pnl()
+print(f"Global limit is : {settings.data['LLIMIT']} to {settings.data['PLIMIT']} at the start...")
