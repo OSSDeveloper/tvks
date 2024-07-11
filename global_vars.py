@@ -43,7 +43,7 @@ class GlobalSettings(BaseSettings):
         self.data['put_trade_flag'] = True
         self.data['PNL'] = 0
         self.data['PLIMIT'] = float(self._globals.get('plimit',0))
-        self.data['LLIMIT'] = self.data['PLIMIT'] * -2
+        self.data['LLIMIT'] = float(self._globals.get('llimit',0))
         
         
 

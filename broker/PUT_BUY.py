@@ -15,7 +15,9 @@ async def buy_put(signal):
 
     print(f"Global PNL is : {settings.data['PNL']}")
     if settings.data['PNL'] <= (settings.data['LLIMIT']) or settings.data['PNL'] >= settings.data['PLIMIT']:
-        return f"Daily trading window is {settings.data['LLIMIT']} to {settings.data['PLIMIT']}."
+        print_str = (f"Daily trading window is {settings.data['LLIMIT']} to {settings.data['PLIMIT']}.")
+        print(print_str)
+        return print_str
     
     put_positions = positions['PE']
     if len(put_positions) > 0:
