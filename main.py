@@ -21,6 +21,7 @@ from broker.PUT_BUY import buy_put
 from broker.PUT_SELL import sell_put
 from utilities.Check_Kotak_Positions import check_kotak_positions
 from utilities.PNL_Tasks import get_pnl
+from utilities.IS_TIME_OK import is_time_ok
 
 settings = get_globals()
 client = settings.get_neo_client()
@@ -35,7 +36,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 # @app.get("/")
 # async def root():
 #     return {"message": settings._globals['client']}
-
+time_check = is_time_ok()
 @app.post("/signal")
 async def process_trade(trade_signal:Request):
     raw_signal = await trade_signal.json() if trade_signal.method == "POST" else {}

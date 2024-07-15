@@ -44,8 +44,10 @@ class GlobalSettings(BaseSettings):
         self.data['PNL'] = 0
         self.data['PLIMIT'] = float(self._globals.get('plimit',0))
         self.data['LLIMIT'] = float(self._globals.get('llimit',0))
-        
-        
+        self.data['deviation'] = float(self._globals.get('deviation',4))
+        self.data['nifty_strike_interval'] = float(self._globals.get('nifty_strike_interval',0))
+        self.data['start_time'] = self._globals.get('start_time',0)
+        self.data['end_time'] = self._globals.get('end_time',0)
 
     def __getitem__(self, key):
         return self.data[key]

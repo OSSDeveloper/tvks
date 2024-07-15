@@ -2,20 +2,26 @@
 from global_vars import get_globals
 from utilities.Print_Debug_Msg import print_debug_msg
 from utilities.Check_Kotak_Positions import check_kotak_positions
-
+from utilities.IS_TIME_OK import is_time_ok
 from recording.Post_Trans_Tasks import post_trans_tasks
 
 settings = get_globals()
 
 
 async def buy_call(signal):
+
+    time_ok = is_time_ok()
+    if time_ok == False:
+        return f"Outside the trading time. cant buy."
+
     client = settings.get_neo_client()
     kotak_positions = client.positions()
     positions = check_kotak_positions(kotak_positions)
 
+    
     print(f"Global PNL is : {settings.data['PNL']}")
     if settings.data['PNL'] <= settings.data['LLIMIT'] or settings.data['PNL'] >= settings.data['PLIMIT']:
-        print_str = (f"Daily trading window is {settings.data['LLIMIT']} to {settings.data['PLIMIT']}.")
+        print_str = (f"P&L is beyond the daily trading window is {settings.data['LLIMIT']} to {settings.data['PLIMIT']}. Trade cannot be executed.")
         print(print_str)
         return print_str
     
