@@ -10,7 +10,7 @@ class GlobalSettings(BaseSettings):
     sleep_interval: int = 3
     _globals: dict = {}
     data: dict = {}
-    greeks_info = {}
+    _greeks_info = {}
     
     client: Any = None
     class Config:
@@ -32,7 +32,7 @@ class GlobalSettings(BaseSettings):
         load_dotenv()
         # self._globals = {k: v for k, v in os.environ.items() if k not in self.__class__.model_fields}
         self._globals = dotenv_values(".env")
-        self.greeks_info = {}
+        self._greeks_info = {}
         
         self.data['nifty_default_lot_size'] = 25
         self.data['exchange_segment'] = "nse_fo"
