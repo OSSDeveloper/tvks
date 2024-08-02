@@ -37,6 +37,15 @@ async def global_exception_handler(request: Request, exc: Exception):
 # async def root():
 #     return {"message": settings._globals['client']}
 time_check = is_time_ok()
+
+@app.post("/total_info")
+async def update_total_info(req_obj):
+    print("\n\n")
+    print(req_obj)
+    print("\n\n")
+    return({"resp": "Greeks received."})
+
+
 @app.post("/signal")
 async def process_trade(trade_signal:Request):
     raw_signal = await trade_signal.json() if trade_signal.method == "POST" else {}
@@ -82,3 +91,4 @@ def print_result(result):
 #     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 pnl = get_pnl()
 print(f"Global limit is : {settings.data['LLIMIT']} to {settings.data['PLIMIT']} at the start...")
+

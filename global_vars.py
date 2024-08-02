@@ -10,6 +10,7 @@ class GlobalSettings(BaseSettings):
     sleep_interval: int = 3
     _globals: dict = {}
     data: dict = {}
+    greeks_info = None
     
     client: Any = None
     class Config:
@@ -60,6 +61,8 @@ class GlobalSettings(BaseSettings):
             yield item
 
 settings = GlobalSettings()
+
+
 
 def get_globals():
     return settings
